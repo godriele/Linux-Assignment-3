@@ -1,0 +1,6 @@
+# Task 1
+1. What is the benefit of creating a system user for this task rather than using a regular user or root?
+
+- The benefit of creating a system user for this task rather than using a regular user or root is that 
+creating a system user limits access and permissions, which helps protect the system from security risks,
+also keeps the services separate from other users and system processes.
