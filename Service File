@@ -1,1 +1,31 @@
+# generate-index.service
+# I created this by going to the service directory which is
+
+cd /etc/systemd/system
+
+# Then I createed the service file 
+# Within the same directory
+nvim generate-index.servcice
+
+// generate-index.service
+
+[Unit]
+Description=Index
+After=network-online.target
+# This will delay the service untill the network is up 
+
+[Service]
+User=webgen
+Group=webgen
+ExectStart=var/lib/webgen/bin/generate_index
+WorkingDirectory=/var/lib/webgen
+
+[Install]
+WantedBy=multi-user.target
+# this will let users login via multiple consoles or via the network
+
+# Reference:
+- https://wiki.archlinux.org/title/Systemd
+
+
 
