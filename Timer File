@@ -1,1 +1,32 @@
+# generate-index.timer
+# Same goes for my service file, I didnt know how I would push my service file, so I will just paste what I did
+# I first went to the directory where service files are at
+  cd /etc/systemd/system 
+# I created the timer file by
+  nvim generate-index.timer
+
+# -----------------------------------------------------------------
+[Unit] 
+Description=Timer For Index Service
+
+[Timer]
+OnCalendar=*-*-* 05:00:00
+Persistent=true
+# This will make sure the service will be triggered as soon as the system turns on
+
+[Install] 
+WantedBy=timers.target
+# -----------------------------------------------------------------
+
+# I enabled this by 
+sudo systemctl enable generate-index.timer
+
+# To start it
+sudo systemctl start generate-index.timer
+
+# To check the status
+sudo systemctl status generate-index.timer
+
+# Ref = https://wiki.archlinux.org/title/Systemd/Timers
+
 
