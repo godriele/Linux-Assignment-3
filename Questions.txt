@@ -33,5 +33,10 @@ it helps configuration organized, makes update easier and so you dont affect any
 This should output if the nginx configuration file test was successful
 
 # ------------------------------------------------------------------------------------------------------------
+# Task 4
+ 1. How can you check the status of your firewall, (Im going to assume its the ufw??)
+- To Check the status of your firewall run the command: status ufw status verbose
+- You will see which port and protocals are being allowed or denied
 
+# ------------------------------------------------------------------------------------------------------------
 
