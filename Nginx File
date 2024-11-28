@@ -1,1 +1,7 @@
+/etc/nginx/nginx.con
+
+# I dint really do much here but just changed the user to webgen
+# I created a separate file for my server blcok
+
+user webgen;
 
