@@ -1,0 +1,132 @@
+#!/bin/bash
+
+# Welcome to my script that explans the commands I've used to finish Assignment 3 Part 1
+
+# ---------------------------------------------------------------------------------------
+
+# Task 1 
+  # Create a system user "webgen" with a home directory at `/var/lib/webgen`
+  # Make sure teh user has ownership of the home directory all of its sub-directories
+
+  # Todo: Create the user
+   
+  sudo useradd -r -d /var/lib/webgen 
+
+  # -r -> makes sure the user is a system account
+  # -d -> Thew new user's home directory 
+  # Ref = https://linux.die.net/man/8/useradd
+
+  # Since its a system account I dont have to create the group, it automaticlly 
+  # creates it with the same name
+  
+  # Todo: Change the ownership
+  
+  sudo chown -R webgen:webgen /var/lib/webgen
+  # This will give the user webgen and group webgen ownership
+  # -R option recursively changes the ownership of all filess
+  # Ref = https://askubuntu.com/questions/693418/use-chown-to-set-the-ownership-of-all-a-folders-subfolders-and-files
+  
+  # A system account is usef to store system files and processes, while a regular user account
+  # is used by a person to access the system
+
+
+# ---------------------------------------------------------------------------------------
+
+# Task 2 
+ # Create a service file that will run the generate_index script
+ # Create a timer generate-index.timer for the service
+ 
+ # Todo: Create the Service file, Timer FIle
+ # I first went into the directory where services are
+ # cd /etc/systemd/system
+ 
+ # Inside I ran this: To create the Service File
+ sudo nvim generate-index.service 
+
+ # Within the same directory I created the Timer File
+ sudo nvim generate-index.timer
+
+ # For whats inside the service and timer -> check the files in the repo
+ # I dont know how I would push the contents inside of those files so Ill just paste what I did
+ 
+ # Ref 
+ # - Services = https://wiki.archlinux.org/title/Systemd
+ # - Timers = https://wiki.archlinux.org/title/Systemd/Timers
+ 
+ # To verify the timer and service 
+  systemctl status generate-index.timer
+
+ # To check the logs 
+  journalctl -u generate-index.service
+  # -u is used to filter logs by specific unit
+  # Ref = https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
+
+# ----------------------------------------------------------------------------------------
+
+# Task 3:
+# Modify the main nginx.conf -> make sure the server runs as the webgen user
+# Create a separate server block file that configures it to serve index.html
+
+  # Todo: Nginx
+# To modify the nginx configuration I ran:
+# sudo nvim /etc/nginx/nginx.conf
+
+# Then at the very top I changed user to webgen
+# Ex: user = webgen;
+
+ # Todo: Server Block File
+ # The reason why we should use a server blcok file instead of modifying the main nginx/conf file is 
+ # because it helps configuration organized, makes update easier and so you dont affect any other settings
+ 
+ # Todo: Create separate server block 
+ # I went to the /etc/nginx directory to create a separate server block
+ # I named it website and created the server_block file inside 
+ 
+ # Same with my Service and Timer Files, I createed a seperate file for each with the code I used
+ # To see if the new changes and new configuration went well I ran
+ # Ref = https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04, https://wiki.archlinux.org/title/Nginx
+ 
+ sudo nginx - 
+
+# -----------------------------------------------------------------------------------------
+
+# Task 4 
+# Install ufw and configure ufw to / Also enable the firewall
+# 	- allow ssh and hhtp from anywhere
+# 	- enable ssh rate limiting
+
+
+# I followed Week 12 notes for this part:
+
+ # to install
+ sudo pacman -S ufw
+
+ # To allow ssh from anywhere, same with the http
+ sudo ufw allow ssh
+ sudo ufw allow http
+
+ # To limit ssh connection
+ sudo ufw limit ssh
+
+ # After I followed through all the steps I ran
+ sudo ufw enable 
+
+ # To check the status to confirm that everything worked I did,
+ # You will be able to see which port and protocols are being allowed or denied
+
+ sudo uwf status verbose
+
+# ----------------------------------------------------------------------------------------
+# Task 5:
+# Check your website
+# Make Sure Everything is good
+
+# - To check first that everything is workig 
+# I ran:
+ sudo systemctl status nginx
+
+ # Then I checkd my website at 
+ # http://147.182.239.146
+ 
+# ----------------------------------------------------------------------------------------
+

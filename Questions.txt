@@ -38,5 +38,9 @@ This should output if the nginx configuration file test was successful
 - To Check the status of your firewall run the command: status ufw status verbose
 - You will see which port and protocals are being allowed or denied
 
+<<<<<<< HEAD
 # ------------------------------------------------------------------------------------------------------------
 
+=======
+q
+>>>>>>> 477ce78 (Created my rough draft for my script)
