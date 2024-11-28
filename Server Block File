@@ -1,1 +1,25 @@
+# /etc/nginx/website/server_block
 
+# I created a new nginx file so I dont chagne anything in the main nginx.config file
+# I didnt know how I would push my files to github so I'll just paste it in 
+# ---------------------------------------------------------------
+server {
+  listen 80
+  listen [::]: 80;
+  # This will tell nginx to listen for HTTP requests on port 80
+
+  server_name webgen;
+
+  root /var/lib/webgen/HTML;
+  # when a request is received, Nginx will look for files to serve in /var/lib/webgen/HTML
+  index index.html
+
+  locaton / {
+    try_files $uri $uri/ =404
+    # if there was an error loading it in 
+  }
+}
+# ---------------------------------------------------------------
+
+# Ref:
+# - https://wiki.archlinux.org/title/Nginx
