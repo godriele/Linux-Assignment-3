@@ -17,3 +17,21 @@ You should be able to see if the timer and or service is active; if its green it
 2. What commands can you run to check logs and to confirm the service's execution
 - To check the logs and to confirm the service's execution run:
 `journalctl -u <example.service>`
+
+
+# ------------------------------------------------------------------------------------------------------------
+
+# Task 3
+
+1. Why is it important to use a separate server block file instead of modifying the main nginx.conf file directly?
+- Using a separate server block file instead of modifying the main nginx.conf file is important because
+it helps configuration organized, makes update easier and so you dont affect any other settings 
+
+2. How can you check the status of the nginx services and test your nginx configuration?
+- To check the status of the nginx services and the my own nginx configuration, Run:
+`sudo nginx -` 
+This should output if the nginx configuration file test was successful
+
+# ------------------------------------------------------------------------------------------------------------
+
+
