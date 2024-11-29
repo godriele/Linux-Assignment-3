@@ -1,7 +1,40 @@
-/etc/nginx/nginx.con
+# etc/nginx/nginx.conf
 
-# I dint really do much here but just changed the user to webgen
-# I created a separate file for my server blcok
+# I didnt really change much in this file except at the top 
 
-user webgen;
+-----------------------------------------------------------------------------
+user webgen; <-- this line 
+worker_process 1; 
+
+#error_log  logs/error.log
+#error_log  logs/error.log notice;
+#error_log  logs/error.log info;
+
+events {
+ worker_connection 1024;
+}
+
+http {
+  types_hash_max_size 4096;  <-- this line
+  types_hash_bucket_zie 64;  <-- this line
+  include      mime.types;
+  include    /etc/nginx/sites-enabled/*; <-- this line
+}
+
+-----------------------------------------------------------------------------
+
+
+user webgen; = this will specify the User that Nginx should run as, this will improve security since the user "webgen" 
+system account and running a server as a regular user will limit the permissions. 
+
+
+# Check the read me I explained why I had to add this two
+types_hash_max_size 4096; = Made the hash table bigger so that Nginx will be able to hande more types of files
+without running into problems
+
+types_hash_bucket_zie 64; = this will help with the performance, if you have a large number of file types, this will
+make sure Nginx handles them more efficiently 
+
+include    /etc/nginx/sites-enabled/*; = Will allow me to add a lot of website configurations to my server without 
+modifying the main nginx.conf file every time. It will tell nginx to look inside the sites-enabled folder and to include them
 
